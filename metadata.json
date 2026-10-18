@@ -1,0 +1,6 @@
+{
+  "name": "Mastermind Alliance Coaching",
+  "description": "Mastermind Alliance Coaching (MAC) — Website and Learning Web App. Practical coaching, corporate training, institutional workshops, and personal growth programs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
