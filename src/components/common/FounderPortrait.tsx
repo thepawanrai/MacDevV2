@@ -33,38 +33,31 @@ export const FounderPortrait: React.FC<FounderPortraitProps> = ({
         {!imgError ? (
           <>
             <img
-              src="/deepak-verma-portrait.png"
+              src="/deepak-verma-founder.jpg"
               alt={altText}
               className="absolute inset-0 w-full h-full object-cover object-top hover:scale-105 transition-all duration-700"
               onError={(e) => {
-                if (e.currentTarget.src !== 'https://plain-apac-prod-public.komododecks.com/202610/18/X510oFcLlJ7OMQtqx2K9/image.png') {
-                  e.currentTarget.src = 'https://plain-apac-prod-public.komododecks.com/202610/18/X510oFcLlJ7OMQtqx2K9/image.png';
+                if (e.currentTarget.src !== 'https://plain-apac-prod-public.komododecks.com/202610/18/rVAfVRSTZeFvxOExiiUc/image.jpg') {
+                  e.currentTarget.src = 'https://plain-apac-prod-public.komododecks.com/202610/18/rVAfVRSTZeFvxOExiiUc/image.jpg';
                 } else {
                   setImgError(true);
                 }
               }}
             />
             {/* Subtle bottom vignette to ensure text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
           </>
         ) : null}
 
-        {/* Polished Editorial Card Fallback & Identity Lockup */}
-        <div className="relative z-10 flex items-start justify-between w-full">
-          <div className="w-10 h-10 rounded-xl bg-[#D13A28] text-white flex items-center justify-center font-black text-sm shadow-md">
-            DV
-          </div>
+        {/* Clean Top Tag */}
+        <div className="relative z-10 flex items-start justify-end w-full">
           <span className="px-2.5 py-1 bg-black/60 backdrop-blur-md border border-neutral-700/60 rounded-full text-[10px] font-bold text-neutral-300 uppercase tracking-wider">
             Mentor & Coach
           </span>
         </div>
 
-        <div className="relative z-10 space-y-1.5 pt-12">
-          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#D13A28]">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Mastermind Alliance Coaching</span>
-          </div>
-
+        {/* Bottom Details (Deepak Verma Name & Title Only) */}
+        <div className="relative z-10 space-y-1 pt-12">
           <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-tight font-['Plus_Jakarta_Sans',sans-serif]">
             Deepak Verma
           </h3>
@@ -72,11 +65,6 @@ export const FounderPortrait: React.FC<FounderPortraitProps> = ({
           <p className="text-xs text-neutral-300 font-medium">
             Founder & Principal Mentor
           </p>
-
-          <div className="flex items-center gap-1.5 text-[11px] text-neutral-400 pt-1">
-            <MapPin className="w-3.5 h-3.5 text-[#D13A28] shrink-0" />
-            <span>Lucknow, Uttar Pradesh, India</span>
-          </div>
         </div>
       </div>
 

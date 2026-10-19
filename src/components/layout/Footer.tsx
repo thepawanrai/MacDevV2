@@ -32,13 +32,10 @@ export const Footer: React.FC<FooterProps> = ({
                   e.currentTarget.src = 'https://plain-apac-prod-public.komododecks.com/202610/18/OuHxXVcrJMNQOPC4byBR/image.png';
                 }}
               />
-              <p className="text-xs font-bold text-[#D13A28] tracking-wider uppercase font-['Inter',sans-serif]">
-                Achieving Success Together.
-              </p>
             </div>
             
             <p className="text-neutral-400 text-sm leading-relaxed max-w-sm pt-1">
-              Mastermind Alliance Coaching helps individuals build practical life and professional skills—and helps organizations develop stronger salespeople, leaders, and teams through focused training, coaching, and learning experiences.
+              Mastermind Alliance Coaching helps individuals build practical life and professional skills and helps organizations develop stronger salespeople, leaders, and teams through focused training, coaching, and learning experiences.
             </p>
           </div>
 
@@ -209,15 +206,6 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
             )}
 
-            <div className="pt-1">
-              <button
-                onClick={() => onOpenInquiry('General')}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D13A28] hover:text-red-400 cursor-pointer"
-              >
-                <span>Submit Direct Coordination Inquiry</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
           </div>
         </div>
 
@@ -238,7 +226,6 @@ export const Footer: React.FC<FooterProps> = ({
                 <span className="text-white font-semibold underline decoration-[#D13A28] underline-offset-4 hover:text-[#D13A28]">
                   Prachar Prasar
                 </span>
-                <ExternalLink className="w-3 h-3 text-[#D13A28]" />
               </a>
             </span>
           </div>

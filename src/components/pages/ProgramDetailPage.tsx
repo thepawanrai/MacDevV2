@@ -385,8 +385,12 @@ export const ProgramDetailPage: React.FC<ProgramDetailPageProps> = ({
               Instructor & Program Director
             </span>
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-[#111111] text-white flex items-center justify-center font-bold text-sm shrink-0">
-                DV
+              <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-neutral-300 shadow-xs">
+                <img
+                  src="/deepak-verma-founder.jpg"
+                  alt={program.instructor}
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-neutral-900">{program.instructor}</h4>

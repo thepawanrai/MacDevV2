@@ -32,19 +32,28 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Top Announcement Bar */}
       <div className="bg-[#111111] text-white py-1.5 px-4 text-xs font-medium border-b border-neutral-800 text-center">
         <div className="max-w-7xl mx-auto flex items-center justify-center">
-          <span className="text-neutral-300">
-            Upcoming: <strong className="text-white font-semibold">Sales Master</strong> Offline Intensive Cohort (October 2026, Lucknow) — Registration Open
-          </span>
+          <div className="text-neutral-300 inline-flex items-center gap-1.5 flex-wrap justify-center">
+            <span>
+              Upcoming: <strong className="text-white font-semibold">Sales Master</strong> Offline Intensive Cohort (October 2026, Lucknow)
+            </span>
+            <button
+              onClick={() => handleNav('program-detail', 'sales-master')}
+              className="font-bold text-[#D13A28] hover:text-red-400 underline underline-offset-2 cursor-pointer transition-colors inline-flex items-center gap-1 ml-1"
+            >
+              <span>Registration Open</span>
+              <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-18">
+        <div className="flex items-center justify-between h-14 sm:h-15 md:h-16 py-1">
           {/* Logo */}
           <div
             onClick={() => handleNav('home')}
-            className="cursor-pointer transition-transform hover:opacity-95 py-0.5"
+            className="cursor-pointer transition-transform hover:opacity-95 flex items-center"
           >
             <MACLogo size="md" />
           </div>

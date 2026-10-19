@@ -9,6 +9,7 @@ import { FounderPortrait } from '../common/FounderPortrait';
 import { HeroProgramSlider } from '../home/HeroProgramSlider';
 import { VideoTestimonialsSection } from '../home/VideoTestimonialsSection';
 import { PodcastSection } from '../home/PodcastSection';
+import { MentorSpotlightSection } from '../home/MentorSpotlightSection';
 
 interface HomePageProps {
   programs: Program[];
@@ -49,7 +50,13 @@ export const HomePage: React.FC<HomePageProps> = ({
         onOpenInquiry={onOpenInquiry} 
       />
 
-      {/* 4. CORE PROGRAMS CURRICULUM BREAKDOWN */}
+      {/* 4. MENTOR SPOTLIGHT SECTION FEATURING DEEPAK VERMA IN EXECUTIVE ARMCHAIR */}
+      <MentorSpotlightSection 
+        onNavigate={onNavigate} 
+        onOpenInquiry={onOpenInquiry} 
+      />
+
+      {/* 5. CORE PROGRAMS CURRICULUM BREAKDOWN */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div id="three-core-programs" className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-neutral-200/80 pb-4">

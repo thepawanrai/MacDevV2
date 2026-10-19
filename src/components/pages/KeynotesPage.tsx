@@ -65,8 +65,12 @@ export const KeynotesPage: React.FC<KeynotesPageProps> = ({
 
       {/* Speaker Bio Card */}
       <div className="bg-white rounded-3xl p-8 border border-neutral-200/90 shadow-xs flex flex-col md:flex-row items-center gap-8">
-        <div className="w-28 h-28 rounded-2xl bg-[#111111] text-white flex items-center justify-center font-extrabold text-3xl shrink-0 shadow-md">
-          DV
+        <div className="w-28 h-28 rounded-2xl overflow-hidden shrink-0 shadow-md border border-neutral-200">
+          <img
+            src="/deepak-verma-founder.jpg"
+            alt="Deepak Verma"
+            className="w-full h-full object-cover object-top"
+          />
         </div>
         <div className="space-y-3">
           <div className="space-y-0.5">

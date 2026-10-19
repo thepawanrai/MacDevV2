@@ -14,10 +14,10 @@ export const MACLogo: React.FC<MACLogoProps> = ({
   const [imageError, setImageError] = useState(false);
 
   const heightClass = {
-    sm: 'h-7 md:h-8',
-    md: 'h-8 sm:h-9 md:h-10 lg:h-11',
-    lg: 'h-11 sm:h-12 md:h-14 lg:h-16',
-    xl: 'h-14 sm:h-16 md:h-20 lg:h-24',
+    sm: 'h-8 md:h-9',
+    md: 'h-10 sm:h-11 md:h-12 lg:h-13',
+    lg: 'h-12 sm:h-14 md:h-16 lg:h-18',
+    xl: 'h-16 sm:h-20 md:h-24 lg:h-28',
   }[size];
 
   const textColorClass = variant === 'white-text' ? 'text-white' : 'text-[#111111]';
