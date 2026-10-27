@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, Sparkles, Award, ShieldCheck, Target, HeartHandshake } from 'lucide-react';
+import { ArrowRight, ChevronDown, Sparkles, Award, Target, Brain, HeartHandshake } from 'lucide-react';
 import { LeadSegment } from '../../types';
 
 interface MentorSpotlightSectionProps {
@@ -12,121 +12,179 @@ export const MentorSpotlightSection: React.FC<MentorSpotlightSectionProps> = ({
   onOpenInquiry,
 }) => {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#121212] via-[#1a1a1a] to-[#0c0c0c] border border-neutral-800 text-white shadow-2xl p-6 sm:p-10 lg:p-14">
-        {/* Ambient background glow accents */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#D13A28]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-80 h-80 bg-neutral-800/40 rounded-full blur-3xl pointer-events-none" />
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      {/* 1. Header Row (Replicated from Screenshot 1) */}
+      <div className="flex items-center justify-between mb-8 sm:mb-12">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#D13A28] mb-1 block">
+            Meet Your Mentor • Mastermind Alliance Coaching
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 tracking-tight leading-[1.15] font-['Plus_Jakarta_Sans',sans-serif]">
+            Meet the Mentor Behind<br />Thousands of Transformations
+          </h2>
+        </div>
+        <div 
+          onClick={() => onNavigate('about')}
+          className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 transition-colors cursor-pointer shadow-xs shrink-0 ml-4"
+          title="Explore Full Profile"
+        >
+          <ChevronDown className="w-5 h-5 text-neutral-700" />
+        </div>
+      </div>
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Seated Armchair Mentor Image (Deepak Verma Sir) */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-            <div className="relative w-full max-w-sm sm:max-w-md flex items-center justify-center">
-              {/* Backlight halo */}
-              <div className="absolute inset-0 bg-radial from-[#D13A28]/25 via-transparent to-transparent rounded-full blur-2xl transform scale-90 pointer-events-none" />
+      {/* 2. Main Executive Grid (Replicated from Screenshot 1) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Left Card: Grey rounded container with Name, Stacked Pills, and Armchair Cutout breaking bottom boundary */}
+        <div className="lg:col-span-8 bg-[#64686e] rounded-3xl sm:rounded-[2.5rem] relative pt-10 sm:pt-14 px-6 sm:px-12 pb-0 overflow-visible shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+            {/* Left Info: Name & Pill Badges */}
+            <div className="md:col-span-6 pb-8 sm:pb-14 space-y-5">
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
+                Deepak Verma
+              </h3>
               
+              <div className="flex flex-col gap-2.5 pt-1">
+                <span className="inline-block bg-white text-neutral-900 text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 rounded-full shadow-xs w-fit">
+                  Founder & Principal Mentor, MAC
+                </span>
+                <span className="inline-block bg-white text-neutral-900 text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 rounded-full shadow-xs w-fit">
+                  Life Coach & Breakthrough Strategist
+                </span>
+                <span className="inline-block bg-white text-neutral-900 text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 rounded-full shadow-xs w-fit">
+                  Corporate Leadership & Sales Trainer
+                </span>
+              </div>
+            </div>
+
+            {/* Right Armchair Cutout: Protrudes downwards breaking the bottom edge of the grey container */}
+            <div className="md:col-span-6 flex justify-center md:justify-end -mb-10 sm:-mb-14 lg:-mb-18 relative z-20">
               <img
                 src="/deepak-verma-mentor.png"
                 alt="Deepak Verma — Founder & Mentor, Mastermind Alliance Coaching"
-                className="relative z-10 w-full max-h-[500px] sm:max-h-[560px] object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
+                className="w-68 sm:w-80 md:w-92 lg:w-96 max-w-none object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500 pointer-events-none"
                 onError={(e) => {
-                  if (e.currentTarget.src !== 'https://plain-apac-prod-public.komododecks.com/202610/18/ofjNm2fdB2vqAIQECFyo/image.png') {
-                    e.currentTarget.src = 'https://plain-apac-prod-public.komododecks.com/202610/18/ofjNm2fdB2vqAIQECFyo/image.png';
+                  if (e.currentTarget.src !== 'https://plain-apac-prod-public.komododecks.com/202610/27/vqLXourDPW7eF2SpSAra/image.png') {
+                    e.currentTarget.src = 'https://plain-apac-prod-public.komododecks.com/202610/27/vqLXourDPW7eF2SpSAra/image.png';
                   }
                 }}
               />
             </div>
+          </div>
+        </div>
 
-            {/* Floating Trust Pill */}
-            <div className="mt-4 sm:-mt-6 relative z-20 bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 rounded-2xl px-5 py-3 shadow-xl flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#D13A28]/20 border border-[#D13A28]/40 flex items-center justify-center shrink-0">
-                <Award className="w-5 h-5 text-[#D13A28]" />
-              </div>
-              <div>
-                <div className="text-xs font-bold text-white tracking-wide">
-                  15+ Years • 25,000+ Transformed
-                </div>
-                <div className="text-[11px] text-neutral-400 font-medium">
-                  Founder & Principal Mentor, MAC
-                </div>
-              </div>
+        {/* Right Stats Column (Outside grey card on white page canvas) */}
+        <div className="lg:col-span-4 flex flex-col justify-between space-y-6 pt-2 lg:pt-6">
+          {/* Stat 1 */}
+          <div className="space-y-1">
+            <div className="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
+              15+ Years
+            </div>
+            <div className="text-xs sm:text-sm text-neutral-500 font-medium">
+              Transforming Lives Across India & Abroad
             </div>
           </div>
 
-          {/* Section Content & Strategic Narrative */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D13A28]/15 border border-[#D13A28]/30 text-[#D13A28] text-xs font-bold tracking-wider uppercase">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Meet Your Mentor • Deepak Verma</span>
-              </div>
+          <div className="border-b border-neutral-200" />
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight font-['Plus_Jakarta_Sans',sans-serif]">
-                Mentorship Grounded in Real Experience, Emotional Intelligence & <span className="text-[#D13A28]">Relentless Progress</span>
-              </h2>
-
-              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed pt-1">
-                At Mastermind Alliance Coaching, Deepak Verma guides individuals and corporate teams away from hollow motivation into systematic, measurable capability. His coaching synthesizes modern behavioral science, high-stakes consultative selling, and spiritual grounding.
-              </p>
+          {/* Stat 2 */}
+          <div className="space-y-1">
+            <div className="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
+              25,000+
             </div>
-
-            {/* Mission Quote Box */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-neutral-900/80 border-l-4 border-[#D13A28] border-neutral-800 space-y-1">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#D13A28] block">
-                Foundational Guiding Purpose
-              </span>
-              <p className="text-sm sm:text-base font-bold text-neutral-100 italic font-['Plus_Jakarta_Sans',sans-serif]">
-                “I want to empower the YUVA Power of our country spiritually and practically, giving them the emotional poise, sales acumen, and mental resilience to lead anywhere in the world.”
-              </p>
-              <div className="text-[11px] text-neutral-400 font-semibold pt-0.5">
-                — Deepak Verma, Life Coach & Breakthrough Strategist
-              </div>
+            <div className="text-xs sm:text-sm text-neutral-500 font-medium">
+              Individuals, Teams & Executives Guided
             </div>
+            <div className="text-[11px] text-neutral-400">
+              Through GoalMaster, SalesMaster & Corporate Keynotes
+            </div>
+          </div>
 
-            {/* Core Pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
-              <div className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800/90 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-red-500/10 text-[#D13A28] flex items-center justify-center font-bold text-xs">
+          <div className="border-b border-neutral-200" />
+
+          {/* Stat 3 */}
+          <div className="space-y-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
+              Spiritual & Practical
+            </div>
+            <div className="text-xs sm:text-sm text-neutral-500 font-medium">
+              Empowering India&apos;s YUVA Power with emotional resilience and sales mastery
+            </div>
+          </div>
+
+          {/* Pill CTA Button (Replicated from Screenshot 1) */}
+          <div className="pt-2">
+            <button
+              onClick={() => onNavigate('about')}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-900 text-xs sm:text-sm font-bold tracking-wide transition-colors cursor-pointer border border-neutral-200 shadow-xs"
+            >
+              <span>Meet Deepak Verma</span>
+              <ArrowRight className="w-4 h-4 text-neutral-700" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Lower Philosophy & Pillars Row */}
+      <div className="mt-16 sm:mt-20 pt-8 border-t border-neutral-200/80">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Mission Quote */}
+          <div className="lg:col-span-5 p-6 rounded-3xl bg-neutral-50 border border-neutral-200 space-y-2">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#D13A28] block">
+              Foundational Guiding Purpose
+            </span>
+            <p className="text-sm sm:text-base font-bold text-neutral-800 italic leading-relaxed font-['Plus_Jakarta_Sans',sans-serif]">
+              “I want to empower the YUVA Power of our country spiritually and practically, giving them the emotional poise, sales acumen, and mental resilience to lead anywhere in the world.”
+            </p>
+            <div className="text-xs text-neutral-500 font-semibold pt-1">
+              — Deepak Verma, Life Coach & Breakthrough Strategist
+            </div>
+          </div>
+
+          {/* 3 Pillars & Direct Actions */}
+          <div className="lg:col-span-7 space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="p-4 rounded-2xl bg-white border border-neutral-200/90 shadow-xs space-y-1.5">
+                <div className="w-7 h-7 rounded-lg bg-red-50 text-[#D13A28] flex items-center justify-center font-bold text-xs">
                   01
                 </div>
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-                  Goal Execution Rigor
+                <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
+                  Goal Rigor
                 </h4>
-                <p className="text-[11px] text-neutral-400 leading-relaxed">
-                  Breaking 10-year aspirations into 90-day actionable sprints with daily accountability scorecards.
+                <p className="text-[11px] text-neutral-500 leading-snug">
+                  Transforming goals into 90-day actionable sprints with daily scorecards.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800/90 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs">
+              <div className="p-4 rounded-2xl bg-white border border-neutral-200/90 shadow-xs space-y-1.5">
+                <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">
                   02
                 </div>
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-                  Emotional Intelligence
+                <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
+                  Emotional Poise
                 </h4>
-                <p className="text-[11px] text-neutral-400 leading-relaxed">
-                  Managing pressure, navigating difficult stakeholder conversations, and building authentic empathy.
+                <p className="text-[11px] text-neutral-500 leading-snug">
+                  Calm under pressure, navigating complex interpersonal situations with empathy.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800/90 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-xs">
+              <div className="p-4 rounded-2xl bg-white border border-neutral-200/90 shadow-xs space-y-1.5">
+                <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs">
                   03
                 </div>
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-                  Consultative Sales
+                <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
+                  Sales Acumen
                 </h4>
-                <p className="text-[11px] text-neutral-400 leading-relaxed">
-                  High-trust discovery questioning, live objection laboratories, and high-integrity deal closing.
+                <p className="text-[11px] text-neutral-500 leading-snug">
+                  Consultative selling, authentic deal negotiation, and rapid objection resolution.
                 </p>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
                 onClick={() => onNavigate('catalogue')}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#D13A28] hover:bg-[#b82f20] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-lg shadow-[#D13A28]/25"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#D13A28] hover:bg-[#b82f20] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-sm shadow-[#D13A28]/25"
               >
                 <span>Explore Signature Programs</span>
                 <ArrowRight className="w-4 h-4" />
@@ -134,7 +192,7 @@ export const MentorSpotlightSection: React.FC<MentorSpotlightSectionProps> = ({
 
               <button
                 onClick={() => onOpenInquiry('Keynote', 'Invite Deepak Verma Sir')}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-bold uppercase tracking-wider rounded-xl border border-neutral-700 transition-all cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold uppercase tracking-wider rounded-xl border border-neutral-200 transition-all cursor-pointer"
               >
                 <span>Invite For Keynotes / Corporate Training</span>
               </button>

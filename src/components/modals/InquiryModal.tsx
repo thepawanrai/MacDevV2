@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2, Send, Building2, User, Mail, Phone, Users, Calendar, AlertCircle } from 'lucide-react';
 import { AppStore } from '../../services/store';
 import { LeadSegment } from '../../types';
+import { WEB3FORMS_ACCESS_KEY, submitToWeb3Forms } from '../../services/web3forms';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -66,7 +67,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
     setIsSubmitting(true);
 
     try {
-      AppStore.addLead({
+      const leadData = {
         segment,
         name: name.trim(),
         email: email.trim(),
@@ -77,6 +78,15 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
         programInterest: programInterest.trim() || 'General Consultation',
         preferredFormat,
         message: message.trim() || 'Inquiry submitted via website portal.',
+      };
+
+      // Add to internal store & backend
+      AppStore.addLead(leadData);
+
+      // Submit to Web3Forms
+      await submitToWeb3Forms({
+        ...leadData,
+        subject: `New Lead: ${leadData.name} - ${leadData.programInterest} (${leadData.segment})`,
       });
 
       setIsSubmitting(false);
@@ -136,7 +146,22 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
+              {/* Web3Forms required configuration */}
+              <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+              <input type="hidden" name="from_name" value="Mastermind Alliance Coaching" />
+              <input
+                type="hidden"
+                name="subject"
+                value={`New Inquiry: ${name || 'Lead'} - ${programInterest || segment}`}
+              />
+              <input type="hidden" name="segment" value={segment} />
+
               {errorMsg && (
                 <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
@@ -178,6 +203,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                 </label>
                 <input
                   type="text"
+                  name="programInterest"
                   value={programInterest}
                   onChange={(e) => setProgramInterest(e.target.value)}
                   placeholder="e.g. Life Master, Sales Master, Real Estate Sales, Core Leadership"
@@ -195,6 +221,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     <User className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                     <input
                       type="text"
+                      name="name"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -212,6 +239,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     <Mail className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                     <input
                       type="email"
+                      name="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -232,6 +260,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     <Phone className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                     <input
                       type="tel"
+                      name="phone"
                       required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
@@ -248,6 +277,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   <div className="relative">
                     <Calendar className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                     <select
+                      name="preferredFormat"
                       value={preferredFormat}
                       onChange={(e) => setPreferredFormat(e.target.value)}
                       className="w-full pl-9 pr-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:border-[#D13A28] focus:bg-white transition-colors text-neutral-800"
@@ -273,6 +303,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                       <Building2 className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                       <input
                         type="text"
+                        name="organization"
                         value={organization}
                         onChange={(e) => setOrganization(e.target.value)}
                         placeholder="e.g. Avadh Properties or State Bank"
@@ -289,6 +320,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                       <Users className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                       <input
                         type="number"
+                        name="participantCount"
                         min="1"
                         value={participantCount}
                         onChange={(e) => setParticipantCount(e.target.value ? Number(e.target.value) : '')}
@@ -306,6 +338,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                   Specific Goals or Notes (Optional)
                 </label>
                 <textarea
+                  name="message"
                   rows={3}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}

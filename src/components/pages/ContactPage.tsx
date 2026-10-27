@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Building2, User, MessageSquare } from 'lucide-react';
 import { SiteSettings, LeadSegment } from '../../types';
 import { AppStore } from '../../services/store';
+import { WEB3FORMS_ACCESS_KEY, submitToWeb3Forms } from '../../services/web3forms';
 
 interface ContactPageProps {
   settings: SiteSettings;
@@ -20,7 +21,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -40,7 +41,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
     setIsSubmitting(true);
 
     try {
-      AppStore.addLead({
+      const leadData = {
         segment,
         name: name.trim(),
         email: email.trim(),
@@ -49,6 +50,15 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
         participantCount: participantCount ? Number(participantCount) : undefined,
         programInterest: programInterest.trim() || 'General Inquiry',
         message: message.trim() || 'Inquiry submitted from Contact Page.',
+      };
+
+      // Record to internal store & backend
+      AppStore.addLead(leadData);
+
+      // Submit to Web3Forms
+      await submitToWeb3Forms({
+        ...leadData,
+        subject: `Contact Desk Lead: ${leadData.name} (${leadData.segment})`,
       });
 
       setIsSubmitting(false);
@@ -167,7 +177,22 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
+              {/* Web3Forms required configuration */}
+              <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+              <input type="hidden" name="from_name" value="Mastermind Alliance Coaching" />
+              <input
+                type="hidden"
+                name="subject"
+                value={`Contact Desk Inquiry: ${name || 'Lead'} - ${programInterest || segment}`}
+              />
+              <input type="hidden" name="segment" value={segment} />
+
               {errorMsg && (
                 <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
@@ -209,6 +234,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -223,6 +249,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -240,6 +267,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -254,6 +282,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                   </label>
                   <input
                     type="text"
+                    name="programInterest"
                     value={programInterest}
                     onChange={(e) => setProgramInterest(e.target.value)}
                     placeholder="e.g. Life Master, Sales Master, Real Estate"
@@ -271,6 +300,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                     </label>
                     <input
                       type="text"
+                      name="organization"
                       value={organization}
                       onChange={(e) => setOrganization(e.target.value)}
                       placeholder="e.g. Avadh Real Estate or Bank Branch"
@@ -284,6 +314,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                     </label>
                     <input
                       type="number"
+                      name="participantCount"
                       min="1"
                       value={participantCount}
                       onChange={(e) => setParticipantCount(e.target.value ? Number(e.target.value) : '')}
@@ -300,6 +331,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ settings }) => {
                   Message / Context
                 </label>
                 <textarea
+                  name="message"
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}

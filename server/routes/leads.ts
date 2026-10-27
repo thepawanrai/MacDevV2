@@ -77,6 +77,36 @@ leadsRouter.post('/', (req: Request, res: Response) => {
     preferredFormat: preferredFormat ? String(preferredFormat).trim() : undefined,
   });
 
+  // Forward asynchronously to Web3Forms
+  try {
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: '952b754d-f09c-499b-9999-a579ee444317',
+        from_name: 'Mastermind Alliance Coaching Website',
+        subject: `New Lead: ${createdLead.name} (${createdLead.programInterest || createdLead.segment})`,
+        name: createdLead.name,
+        email: createdLead.email,
+        phone: createdLead.phone,
+        message: createdLead.message,
+        segment: createdLead.segment,
+        organization: createdLead.organization,
+        designation: createdLead.designation,
+        participantCount: createdLead.participantCount,
+        programInterest: createdLead.programInterest,
+        preferredFormat: createdLead.preferredFormat,
+      }),
+    }).catch((err) => {
+      console.warn('Web3Forms server forward warning:', err);
+    });
+  } catch {
+    // Non-blocking
+  }
+
   res.status(201).json({
     success: true,
     message: 'Inquiry received successfully. Our team will contact you shortly.',

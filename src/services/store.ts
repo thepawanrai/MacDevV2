@@ -1,5 +1,6 @@
 import { Program, LeadInquiry, LiveSession, SiteSettings, User, Enrollment } from '../types';
 import { initialPrograms, initialLeads, initialLiveSessions, initialSiteSettings, initialUsers } from '../data/seedData';
+import { submitToWeb3Forms } from './web3forms';
 
 const STORAGE_KEYS = {
   PROGRAMS: 'mac_programs_v2',
@@ -102,6 +103,23 @@ export class AppStore {
     };
     leads.unshift(newLead);
     this.saveLeads(leads);
+
+    // Sync with Web3Forms email delivery
+    submitToWeb3Forms({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      message: lead.message,
+      organization: lead.organization,
+      designation: lead.designation,
+      participantCount: lead.participantCount,
+      programInterest: lead.programInterest,
+      preferredFormat: lead.preferredFormat,
+      segment: lead.segment,
+      subject: `New MAC Lead: ${lead.name} (${lead.programInterest || lead.segment || 'General'})`,
+    }).catch((err) => {
+      console.warn('Web3Forms dispatch deferred:', err);
+    });
 
     // Sync with backend API
     try {

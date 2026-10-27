@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User, Program, Enrollment, LiveSession, LeadSegment } from '../../types';
 import { AppStore } from '../../services/store';
+import { WEB3FORMS_ACCESS_KEY } from '../../services/web3forms';
 import { 
   BookOpen, Play, CheckCircle2, Clock, Calendar, 
   Download, Sparkles, Video, ArrowRight, MessageSquare, 
@@ -443,7 +444,18 @@ export const LearnerDashboard: React.FC<LearnerDashboardProps> = ({
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSupportSubmit} className="space-y-4">
+            <form
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              onSubmit={handleSupportSubmit}
+              className="space-y-4"
+            >
+              <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+              <input type="hidden" name="from_name" value="Mastermind Alliance Coaching - Learner Support" />
+              <input type="hidden" name="subject" value={`Learner Support Ticket: ${currentUser.name}`} />
+              <input type="hidden" name="name" value={currentUser.name} />
+              <input type="hidden" name="email" value={currentUser.email} />
+
               <div>
                 <label className="block text-xs font-semibold text-neutral-700 mb-1">
                   Learner Name & Email
@@ -458,6 +470,7 @@ export const LearnerDashboard: React.FC<LearnerDashboardProps> = ({
                   Your Question or Implementation Barrier
                 </label>
                 <textarea
+                  name="message"
                   required
                   rows={4}
                   value={supportMessage}
